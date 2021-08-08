@@ -15,6 +15,8 @@ import { Page1Component } from './navpages/page1/page1.component';
 import { SearchComponent } from './navpages/search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material-module';
+
+
 @NgModule({
   declarations: [
     AppComponent,

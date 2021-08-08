@@ -3,7 +3,15 @@ import { Observable, Subject, EMPTY, of, interval} from 'rxjs';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { map, catchError, distinctUntilChanged, pairwise, tap, delay, first, takeLast, distinct, switchMap } from 'rxjs/operators';
 
-
+export interface Trade {
+  data: {
+    p: number,
+    s: string, 
+    t: number,
+    v: number
+  } [],
+  type: string
+}
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -11,6 +19,17 @@ import { map, catchError, distinctUntilChanged, pairwise, tap, delay, first, tak
 })
 export class MainComponent implements OnInit {
 
+  socket$: WebSocketSubject<any> = webSocket({
+    url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
+    openObserver: {
+    next: () => {
+      this.socket$.next({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'});
+    }
+  },
+});
+
+  price$: Observable<any> = of(0);
+  direction$: Observable<any> = of('green');
   name = 'stuff'
 
 
@@ -18,9 +37,26 @@ export class MainComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    this.price$ = this.getLatestPrice();
   }
 
-  
+  getLatestPrice() {
+    return this.socket$.pipe(
+      map((t: Trade) => t.type === 'trade' && t.data[0].p.toFixed()),
+      distinctUntilChanged(),
+      tap(d => console.log(d)),
+      catchError(_ => EMPTY)
+    )
+  }
+
+  getDirection() {
+    return this.getLatestPrice().pipe(
+      pairwise(),
+      // tap(d => {
+      //   console.log(`Current val ${d[1]} > ${d[0]} `, d[1] > d[0])
+      // }),
+      map(arr => arr[0] < arr[1] ? 'green' :'red')
+    )
+  }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Observable, Subject, EMPTY, of, interval} from 'rxjs';
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
+import { map, catchError, distinctUntilChanged, pairwise, tap, delay, first, takeLast, distinct, switchMap } from 'rxjs/operators';
 
 
 @Component({

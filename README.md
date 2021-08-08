@@ -1,6 +1,7 @@
-# SreApp
+# sre-app
 
 
+https://stackblitz.com/edit/angular-rxjs-websocket-rvcmfp?file=package.json
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.

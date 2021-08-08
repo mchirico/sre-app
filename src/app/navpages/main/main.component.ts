@@ -38,6 +38,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.price$ = this.getLatestPrice();
+    this.direction$ = this.getDirection()
   }
 
   getLatestPrice() {

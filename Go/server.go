@@ -38,4 +38,3 @@ func main() {
 	e.GET("/ws", hello)
 	e.Logger.Fatal(e.Start(":1323"))
 }
-

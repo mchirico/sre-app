@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -13,18 +15,24 @@ func hello(c echo.Context) error {
 		defer ws.Close()
 		for {
 			// Write
-			err := websocket.Message.Send(ws, "Hello, Client!")
+			result := fmt.Sprintf("{%q:[{%q:%d}, {%q:%d}], %q:%q}","data","q",rand.Intn(100),"q",rand.Intn(100),"trade","trade")
+			err := websocket.Message.Send(ws, result)
 			if err != nil {
-				c.Logger().Error(err)
+				//c.Logger().Error(err)
+				_ = err
 			}
+				fmt.Printf("out: %s\n",result)
+
 
 			// Read
 			msg := ""
 			err = websocket.Message.Receive(ws, &msg)
 			if err != nil {
-				c.Logger().Error(err)
+				//c.Logger().Error(err)
+				_ = err
 			}
 			fmt.Printf("%s\n", msg)
+			time.Sleep(3 * time.Second)
 		}
 	}).ServeHTTP(c.Response(), c.Request())
 	return nil

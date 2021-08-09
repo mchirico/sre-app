@@ -5,13 +5,11 @@ import { map, catchError, distinctUntilChanged, pairwise, tap, delay, first, tak
 
 export interface Trade {
   data: {
-    p: number,
-    s: string, 
-    t: number,
-    v: number
+    p: number
   } [],
   type: string
 }
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -20,7 +18,8 @@ export interface Trade {
 export class MainComponent implements OnInit {
 
   socket$: WebSocketSubject<any> = webSocket({
-    url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
+   // url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
+    url: 'ws://localhost:1323/ws',
     openObserver: {
     next: () => {
       this.socket$.next({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'});
@@ -53,9 +52,9 @@ export class MainComponent implements OnInit {
   getDirection() {
     return this.getLatestPrice().pipe(
       pairwise(),
-      // tap(d => {
-      //   console.log(`Current val ${d[1]} > ${d[0]} `, d[1] > d[0])
-      // }),
+       tap(d => {
+         console.log(`Current val ${d[1]} > ${d[0]} `, d[1] > d[0])
+        }),
       map(arr => arr[0] < arr[1] ? 'green' :'red')
     )
   }

@@ -18,7 +18,7 @@ export interface Trade {
 export class MainComponent implements OnInit {
 
   socket$: WebSocketSubject<any> = webSocket({
-   // url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
+    // url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
     url: 'ws://localhost:1323/ws',
     openObserver: {
     next: () => {
@@ -42,7 +42,7 @@ export class MainComponent implements OnInit {
 
   getLatestPrice() {
     return this.socket$.pipe(
-      map((t: Trade) => t.type === 'trade' && t.data[0].p.toFixed()),
+      map((t: Trade) => t.type === 'trade' && t.data[0].p),
       distinctUntilChanged(),
       tap(d => console.log(d)),
       catchError(_ => EMPTY)

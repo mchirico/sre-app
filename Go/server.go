@@ -26,6 +26,7 @@ func hello(c echo.Context) error {
 			err := websocket.Message.Send(ws, result)
 			if err != nil {
 				c.Logger().Error(err)
+				return
 
 			}
 				fmt.Printf("out: %s\n",result)

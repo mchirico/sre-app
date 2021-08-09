@@ -13,26 +13,26 @@ import (
 func hello(c echo.Context) error {
 	websocket.Handler(func(ws *websocket.Conn) {
 		defer ws.Close()
+		     // Read
+			msg := ""
+			err := websocket.Message.Receive(ws, &msg)
+			if err != nil {
+				c.Logger().Error(err)
+			}
+			fmt.Printf("%s\n", msg)
 		for {
 			// Write
-			result := fmt.Sprintf("{%q:[{%q:%d}, {%q:%d}], %q:%q}","data","q",rand.Intn(100),"q",rand.Intn(100),"trade","trade")
+			result := fmt.Sprintf("{%q: [{%q: %4.2f}, {%q: %4.2f}], %q: %q}","data","p",rand.Float32()*100,"p",rand.Float32()*100,"type","trade")
 			err := websocket.Message.Send(ws, result)
 			if err != nil {
-				//c.Logger().Error(err)
-				_ = err
+				c.Logger().Error(err)
+
 			}
 				fmt.Printf("out: %s\n",result)
 
 
-			// Read
-			msg := ""
-			err = websocket.Message.Receive(ws, &msg)
-			if err != nil {
-				//c.Logger().Error(err)
-				_ = err
-			}
-			fmt.Printf("%s\n", msg)
-			time.Sleep(3 * time.Second)
+			
+			time.Sleep(2 * time.Second)
 		}
 	}).ServeHTTP(c.Response(), c.Request())
 	return nil

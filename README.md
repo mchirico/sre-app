@@ -5,9 +5,7 @@
 
 Very simple Angular WebSocket Template
 
-![image](https://user-images.githubusercontent.com/755710/129450965-6ac85ec7-e2b4-47ef-ae41-afcf0878fb93.png)
-
-
+![image](https://user-images.githubusercontent.com/755710/129456423-3d938bfb-0791-4ca5-af64-861ba2d74460.png)
 
 
 

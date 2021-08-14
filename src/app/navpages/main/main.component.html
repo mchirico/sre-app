@@ -4,9 +4,25 @@
     Direction: <strong>{{direction$ | async}}</strong> 
   </p>
   
+
+  <p *ngIf="status$ | async as status; else loading">
+    Price: <strong >{{status[0].n}}</strong><br>
+    Direction: <strong>{{direction$ | async}}</strong> 
+  </p>
+    
+
+  <ul>
+    <li *ngFor="let row of status$|async as status; index as i">
+      {{ i + 1 }}. {{ row.name }}, {{ row.n }}, {{ row.p }}, {{ row.code }}
+    </li>
+  </ul>
+
+
   <ng-template #loading>
     <p>Loading price...</p>
   </ng-template>
+
+  
 
 <p>main works!</p>
 

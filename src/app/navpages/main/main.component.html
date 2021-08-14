@@ -18,6 +18,31 @@
   </ul>
 
 
+
+  <table border="0" width=600>
+    <thead>
+      <td>Name</td>
+      <td>Code</td>
+      <td>n</td>
+      <td>p</td>
+    </thead>
+    <tbody>
+      <tr *ngFor='let row of status$|async as status; index as i'
+        [class.tcolor2]='row.p > 25 && row.p < 50'>
+        <td>{{row.name}}</td>
+        <td>{{row.code}}</td>
+        <td>{{row.n}}</td>
+        <td [class.tcolor]='row.p > 20 && row.p < 50'>{{row.p}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+
+
   <ng-template #loading>
     <p>Loading price...</p>
   </ng-template>

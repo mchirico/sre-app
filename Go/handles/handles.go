@@ -30,7 +30,7 @@ func GenStatus() []byte {
 	for i := 0; i < 9; i++ {
 		randomString := fmt.Sprintf("%f", rand.Float32()*100)
 		randomN := fmt.Sprintf("n %f", rand.Float32()*100)
-		m = append(m, StatusData{Name: "string", P: rand.Int(), Code: randomString, N: randomN})
+		m = append(m, StatusData{Name: "string", P: rand.Intn(100), Code: randomString, N: randomN})
 	}
 	n := &Status{M: m, T: "status"}
 	resultJson, _ := json.Marshal(n)

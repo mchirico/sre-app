@@ -1,5 +1,18 @@
 # sre-app
 
+
+## Summary
+
+Very simple Angular WebSocket Template
+
+![image](https://user-images.githubusercontent.com/755710/129450965-6ac85ec7-e2b4-47ef-ae41-afcf0878fb93.png)
+
+
+
+
+
+
+
 https://stackblitz.com/edit/rxjs-websockets-by24wd?file=src%2Fapp%2Fapp.component.ts
 
 

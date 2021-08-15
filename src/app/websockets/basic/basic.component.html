@@ -1,58 +1,51 @@
-
-
-
 <p *ngIf="price$ | async as price; else loading">
-    Price: <strong >{{price}}</strong><br>
-    Direction: <strong>{{direction$ | async}}</strong> 
-  </p>
-  
+  Price: <strong>{{ price }}</strong
+  ><br />
+  Direction:
+  <strong [style.background-color]="getBackgroundColor(direction$ | async)">{{
+    direction$ | async
+  }}</strong>
+</p>
 
-  <p *ngIf="status$ | async as status; else loading">
-    Price: <strong >{{status[0].n}}</strong><br>
-    Direction: <strong>{{direction$ | async}}</strong> 
-  </p>
-    
+<p *ngIf="status$ | async as status; else loading">
+  Price: <strong>{{ status[0].n }}</strong
+  ><br />
+  Direction:
+  <strong [style.background-color]="getBackgroundColor(direction$ | async)">{{
+    direction$ | async
+  }}</strong>
+</p>
 
-  <ul>
-    <li *ngFor="let row of status$|async as status; index as i">
-      {{ i + 1 }}. {{ row.name }}, {{ row.n }}, {{ row.p }}, {{ row.code }}
-    </li>
-  </ul>
+<ul>
+  <li *ngFor="let row of status$ | async as status; index as i">
+    {{ i + 1 }}. {{ row.name }}, {{ row.n }}, {{ row.p }}, {{ row.code }}
+  </li>
+</ul>
 
+<table border="0" width="600">
+  <thead>
+    <td>Name</td>
+    <td>Code</td>
+    <td>n</td>
+    <td>p</td>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let row of status$ | async as status; index as i"
+      [class.tcolor2]="row.p > 25 && row.p < 50"
+    >
+      <td>{{ row.name }}</td>
+      <td>{{ row.code }}</td>
+      <td>{{ row.n }}</td>
+      <td [class.tcolor]="row.p > 20 && row.p < 50">{{ row.p }}</td>
+    </tr>
+  </tbody>
+</table>
 
-
-  <table border="0" width=600>
-    <thead>
-      <td>Name</td>
-      <td>Code</td>
-      <td>n</td>
-      <td>p</td>
-    </thead>
-    <tbody>
-      <tr *ngFor='let row of status$|async as status; index as i'
-        [class.tcolor2]='row.p > 25 && row.p < 50'>
-        <td>{{row.name}}</td>
-        <td>{{row.code}}</td>
-        <td>{{row.n}}</td>
-        <td [class.tcolor]='row.p > 20 && row.p < 50'>{{row.p}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-
-
-
-
-  <ng-template #loading>
-    <p>Loading price...</p>
-  </ng-template>
-
-  
+<ng-template #loading>
+  <p>Loading price...</p>
+</ng-template>
 
 <p>websockets basic works!</p>
 
-<div>
-    
-  </div>
+<div></div>

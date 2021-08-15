@@ -29,6 +29,9 @@ ng g component navpages/search
 ng g service service/backend
 
 ng generate component websockets/basic
+ng generate service websockets/sockets
+ng generate service websockets/msgSockets
+
 # D3 charts
 npm install d3 --save
 npm install @types/d3 --save-dev

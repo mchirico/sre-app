@@ -2,7 +2,7 @@
   Price: <strong>{{ price }}</strong
   ><br />
   Direction:
-  <strong [style.background-color]="getBackgroundColor(direction$ | async)">{{
+  <strong [style.background-color]="getColor(direction$ | async)">{{
     direction$ | async
   }}</strong>
 </p>
@@ -11,7 +11,7 @@
   Price: <strong>{{ status[0].n }}</strong
   ><br />
   Direction:
-  <strong [style.background-color]="getBackgroundColor(direction$ | async)">{{
+  <strong [style.background-color]="getColor(direction$ | async)">{{
     direction$ | async
   }}</strong>
 </p>

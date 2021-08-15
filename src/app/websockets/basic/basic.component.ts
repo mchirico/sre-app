@@ -36,11 +36,8 @@ export class BasicComponent implements OnInit {
     this.direction$ = this.socketService.getDirection();
   }
 
-  getBackgroundColor(value: string) {
+  getColor(value: string): string {
     console.log('background:', value);
-    if (value == 'red') {
-      return 'red';
-    }
-    return 'green';
+    return this.socketService.getBackgroundColor(value);
   }
 }

@@ -15,6 +15,7 @@ import { Page1Component } from './navpages/page1/page1.component';
 import { SearchComponent } from './navpages/search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material-module';
+import { BasicComponent } from './websockets/basic/basic.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MaterialModule} from './material-module';
     StartChartComponent,
     DetailChartComponent,
     Page1Component,
-    SearchComponent
+    SearchComponent,
+    BasicComponent
   ],
   imports: [
     BrowserModule,

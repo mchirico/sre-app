@@ -5,7 +5,35 @@
 
 Very simple Angular WebSocket Template
 
+
 ![image](https://user-images.githubusercontent.com/755710/129456423-3d938bfb-0791-4ca5-af64-861ba2d74460.png)
+
+
+
+```bash
+# Heading
+ng g component navbar/navbar
+
+# Heading pages -  (add more if needed).
+ng g component navpages/home
+ng g component navpages/main
+ng g component navpages/auth
+ng g component navpages/page0
+ng g component navpages/page0/area-chart
+ng g component navpages/page0/area-chart/start-chart
+ng g component navpages/page0/area-chart/detail-chart
+ng g component navpages/page1
+
+ng g component navpages/search
+
+ng g service service/backend
+
+ng generate component websockets/basic
+# D3 charts
+npm install d3 --save
+npm install @types/d3 --save-dev
+
+```
 
 
 

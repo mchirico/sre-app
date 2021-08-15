@@ -1,0 +1,11 @@
+.tcolor {
+    color: white;
+    font-weight: bold;
+    background-color: red;
+  }
+
+  .tcolor2 {
+    color: white;
+    font-weight: bold;
+    background-color: rgb(0, 47, 255);
+  }

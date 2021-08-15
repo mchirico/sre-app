@@ -14,22 +14,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-export interface Trade {
-  data: {
-    p: number;
-  }[];
-  type: string;
-}
-
-export interface Status {
-  data: {
-    name: string;
-    p: number;
-    code: string;
-    n: string;
-  }[];
-  type: string;
-}
+import { Trade, Status } from '../interfaces/interfaces';
+import { SocketsService } from '../sockets.service';
 
 @Component({
   selector: 'app-basic',
@@ -37,72 +23,17 @@ export interface Status {
   styleUrls: ['./basic.component.css'],
 })
 export class BasicComponent implements OnInit {
-  socket$: WebSocketSubject<any> = webSocket({
-    // url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
-    url: 'ws://localhost:1323/ws',
-    openObserver: {
-      next: () => {
-        this.socket$.next({ type: 'subscribe', symbol: 'BINANCE:BTCUSDT' });
-      },
-    },
-  });
-
-  socketStatus$: WebSocketSubject<any> = webSocket({
-    // url: 'wss://ws.finnhub.io?token=bsr37a748v6tucpfplbg',
-    url: 'ws://localhost:1323/status',
-    openObserver: {
-      next: () => {
-        this.socketStatus$.next({
-          type: 'subscribe',
-          symbol: 'BINANCE:BTCUSDT',
-        });
-      },
-    },
-  });
-
   status$: Observable<any> = of(0);
   price$: Observable<any> = of(0);
   direction$: Observable<any> = of('green');
   name = 'stuff';
 
-  constructor() {}
+  constructor(private socketService: SocketsService) {}
 
   ngOnInit(): void {
-    this.status$ = this.getLatestStatus();
-    this.price$ = this.getLatestPrice();
-    this.direction$ = this.getDirection();
-  }
-
-  getLatestStatus() {
-    return this.socketStatus$.pipe(
-      tap((d) => console.log('Initial:', d)),
-      map((t: Status) => t.type === 'status' && t.data),
-
-      distinctUntilChanged(),
-      tap((d) => console.log('z', d)),
-      catchError((_) => EMPTY)
-    );
-  }
-
-  getLatestPrice() {
-    return this.socket$.pipe(
-      tap((d) => console.log('Initial:', d)),
-      map((t: Trade) => t.type === 'trade' && t.data[0].p),
-
-      distinctUntilChanged(),
-      tap((d) => console.log('z', d)),
-      catchError((_) => EMPTY)
-    );
-  }
-
-  getDirection() {
-    return this.getLatestPrice().pipe(
-      pairwise(),
-      tap((d) => {
-        console.log(`Current val ${d[1]} > ${d[0]} `, d[1] > d[0]);
-      }),
-      map((arr) => (arr[0] < arr[1] ? 'green' : 'red'))
-    );
+    this.status$ = this.socketService.getLatestStatus();
+    this.price$ = this.socketService.getLatestPrice();
+    this.direction$ = this.socketService.getDirection();
   }
 
   getBackgroundColor(value: string) {
